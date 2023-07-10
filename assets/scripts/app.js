@@ -83,22 +83,11 @@ const getDataFromUrl = async () => {
 			countrySubRegion.innerHTML = `Sub-region: ${countryModel.subRegion}`;
 
 			// async fetch from maps api
-			const getMapFromUrl = async () => {
-				const api = `https://tile.thunderforest.com/static/transport/${countryModel.longitude},${countryModel.latitude},5/500x300.png?apikey=f7f92df8257d4a87b3920f0f7542c27b`;
-				console.log("X");
-				try {
-					const response = await fetch(api, {
-						method: "GET",
-					});
-					console.log(response);
-
-					// google maps api with lng/lat query
-					const mapRender = document.getElementById("map");
-					mapRender.innerHTML = `<img src="${api}">`;
-
-				} catch (err) {
-					console.error(err);
-				}
+			const getMapFromUrl = () => {
+				let zoom = 5;
+				const api = `https://tile.thunderforest.com/static/transport/${countryModel.longitude},${countryModel.latitude},${zoom}/500x300.png?apikey=f7f92df8257d4a87b3920f0f7542c27b`;
+				const mapRender = document.getElementById("map");
+				mapRender.innerHTML = `<img src="${api}">`;
 			};
 
 			getMapFromUrl();

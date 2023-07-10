@@ -127,6 +127,7 @@ nav input {
 }
 .data__container .data__body--map #map img {
   width: 100%;
+  border-radius: 15px;
 }
 
 button {

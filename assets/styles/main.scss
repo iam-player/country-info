@@ -1,0 +1,81 @@
+@import "base/reset";
+@import "base/variables";
+@import "base/fonts";
+
+body {
+	background-color: $black;
+	color: $white;
+	font-family: 'Poppins', Tahoma, sans-serif;
+}
+
+main {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 100vh;
+	width: 100%;
+}
+
+nav {
+	display: flex;
+	min-height: 50px;
+	width: 600px;
+	background-color: $secondColor;
+	border-radius: 15px;
+
+	i {
+		width: 50px;
+		height: 100%;
+		padding: 0 15px;
+		padding-top: 24px;
+        background-color: $mainColor;
+        border-radius: 15px;
+	}
+
+	input {
+		width: 550px;
+		height: 100%;
+		font-size: 18px;
+        padding-left: 15px;
+		color: $white;
+	}
+}
+
+.search {
+}
+
+.data__container {
+	margin: 20px 0;
+	padding: 20px;
+	width: 600px;
+	height: 600px;
+	background-color: $secondColor;
+	border-radius: 15px;
+	text-align: center;
+
+	h2 {
+        font-size: 2rem;
+		margin-top: 20px;
+	}
+
+    span.flag{
+        font-size: 2rem;
+        margin-right: 8px;
+    }
+
+    #dataList{
+        display: grid;
+        grid-template-columns: 2fr;
+        grid-template-rows: 1fr;
+    }
+}
+
+button {
+	user-select: none;
+	background: $accentGradient;
+	color: $white;
+	width: 100px;
+	border-radius: 15px;
+	text-align: center;
+}

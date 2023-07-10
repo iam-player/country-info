@@ -15,8 +15,20 @@
 				<input type="text" placeholder="Search for country.." id="search">
 				<button type="submit" id="getData">search</button>
 			</nav>
-            <div class="data__container">
-                <div id="dataList"></div>
+            <div class="data__container" id="dataContainer">
+				<div class="data__header">
+					<span id="countryFlag"></span><h2 id="dataHeader"></h2>
+				</div>
+				<h5 id="dataSubHeader"></h5>
+				<div class="data__body">
+					<div id="dataTable">
+						<p class="data__body--paragraph" id="countryLanguages"></p>
+						<p class="data__body--paragraph" id="countryRegion"></p>
+						
+						<p class="data__body--paragraph" id="countryCurrencies"></p>
+						<p class="data__body--paragraph" id="countrySubRegion"></p>
+					</div>
+				</div>
             </div>
 			
 		</main>

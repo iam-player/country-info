@@ -1,13 +1,26 @@
-// API call button
+// api call button
 const getData = document.getElementById("getData");
 
-// API input
+// api input
 const search = document.getElementById("search");
 
-// async fetch from API
+// base data elements
+const dataContainer = document.getElementById("dataContainer");
+const dataTable = document.getElementById("dataTable");
+const dataHeader = document.getElementById("dataHeader");
+const dataSubHeader = document.getElementById("dataSubHeader");
+
+// extended data elements
+const countryFlag = document.getElementById("countryFlag");
+const countryLanguages = document.getElementById("countryLanguages");
+const countryCurrencies = document.getElementById("countryCurrencies");
+const countryRegion = document.getElementById("countryRegion");
+const countrySubRegion = document.getElementById("countrySubRegion");
+
+// async fetch from api
 const getDataFromUrl = async () => {
-	// user input + api url
-	const api = "https://restcountries.com/v3.1/name/" + search.value;
+	// api url + user input
+	const api = `https://restcountries.com/v3.1/name/${search.value}`;
 
 	try {
 		const response = await fetch(api, {
@@ -20,45 +33,68 @@ const getDataFromUrl = async () => {
 			cache: "no-cache",
 		});
 
-		if (!response.ok) {
-			throw new Error("HTTP protocol error: " + response.status);
+		if (response.status === 404) {
+			search.classList.add('error');
+			search.classList.add('bounce');
+		} else if (!response.ok) {
+			throw new Error(`HTTP protocol error: ${response.status}`);
+		} else {
+			// response handler
+			const json = await response.json();
+			const countryJson = json[0];
+
+			// country obj
+			const countryModel = {
+				officialName: String(countryJson.name?.official || "Name"),
+				commonName: String(countryJson.name?.common || "Common Name"),
+				capital: String(countryJson.capital || "Capital"),
+				flag: String(countryJson?.flag || countryJson?.fifa || "flag"),
+				language: Object.values(countryJson.languages).join(", "),
+				currency: Object.keys(countryJson.currencies).join(", "),
+				region: String(countryJson.region),
+				subRegion: String(countryJson.subregion),
+			};
+
+			// push data
+			dataHeader.innerText = countryModel.commonName + " (" + countryModel.capital + ")";
+			dataSubHeader.innerText = countryModel.officialName;
+			countryFlag.innerText = countryModel.flag;
+
+			// language(s) for more than 1 lang
+			if (Object.values(countryJson.languages).length > 1) {
+				countryLanguages.innerText = `Languages: ${countryModel.language}`
+			} else {
+				countryLanguages.innerText = `Language: ${countryModel.language}`
+			}
+
+			// currency(ies) for more than 1 curr
+			if (Object.values(countryJson.currencies).length > 1) {
+				countryCurrencies.innerText = `Currencies: ${countryModel.currency}`
+			} else {
+				countryCurrencies.innerText = `Currency: ${countryModel.currency}`
+			}
+
+			countryRegion.innerHTML = `Region: ${countryModel.region}`;
+			countrySubRegion.innerHTML = `Sub-region: ${countryModel.subRegion}`;
 		}
-
-		// response handler
-		const dataList = document.getElementById("dataList");
-		const jsonData = await response.json();
-
-		const countryModel = {
-			officialName: jsonData[0]['official'],
-			commonName: jsonData[0]['common'],
-			flag: jsonData[0]['flag'],
-			languages: jsonData[0][0]
-		};
-
-
-		//log data
-		console.log(jsonData);
-
-		dataList.innerHTML +=
-			'<h2><span class="flag">' +
-			countryModel['flag'] +
-			"</span>" +
-			jsonData[0].name["common"] +
-			"</h2>";
-		dataList.innerHTML += "<p>" + jsonData[0].name["official"] + "</p>";
-		dataList.innerHTML +=
-			"<p>Languages: " + jsonData.keys(languages)[0] + "</p>";
 	} catch (err) {
 		console.error(err);
 	}
 };
 
+// get data on "Enter" keydown event
 search.addEventListener("keydown", (e) => {
-	if (e.code === "Enter" || e.isComposing === "true") {
+	//remove error class
+	search.classList.remove('error');
+
+	// keyCode is deprecated - using .key & .code insteaed
+	if (e.code === "Enter" || e.key === "Enter" || e.isComposing === "true") {
 		getDataFromUrl();
-	}
+	} 
+	
 });
 
+// get data on click event
 getData.addEventListener("click", () => {
 	getDataFromUrl();
 });

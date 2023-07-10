@@ -1,0 +1,22 @@
+@mixin flexCenter() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin fontFamily(){
+    font-family: 'Poppins';
+    font-weight: 500;
+}
+
+@mixin accentButton(){
+    background-color: $accentColor;
+    color: $lightColor;
+    border-radius: 10px;
+    text-align: center;
+}
+
+@mixin hover(){
+    transition: 0.2s ease;
+    filter: brightness(1.2);
+}

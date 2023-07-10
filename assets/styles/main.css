@@ -110,7 +110,7 @@ nav input {
   border-radius: 15px;
 }
 .data__container .data__body {
-  margin-top: 15px;
+  margin: 15px 0;
 }
 .data__container .data__body #dataTable {
   margin-top: 1px;
@@ -120,6 +120,13 @@ nav input {
 }
 .data__container .data__body #dataTable p.data__body--paragraph {
   color: white;
+}
+.data__container .data__body--map {
+  height: 300px;
+  width: 100%;
+}
+.data__container .data__body--map #map img {
+  width: 100%;
 }
 
 button {

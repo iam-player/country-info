@@ -71,7 +71,7 @@ nav {
 	border-radius: 15px;
 
 	.data__body{
-		margin-top: 15px;
+		margin: 15px 0;
 
 		#dataTable{
 			margin-top: 1px;
@@ -82,6 +82,15 @@ nav {
 			p.data__body--paragraph{
 				color: $white;
 			}
+		}
+	}
+
+	.data__body--map{
+		height: 300px;
+		width: 100%;
+
+		#map img{
+			width: 100%;
 		}
 	}
 }
